@@ -11,10 +11,11 @@ jobs:
           node-version: 'lts/*'
       - name: Install Dependencies
         run: |
-          cd apps/api
+          # Installing from root to ensure all workspace tools are available
           npm install --legacy-peer-deps
       - name: Push Schema to Supabase
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          npx prisma db push --schema=apps/api/prisma/schema.prisma
+          # Pointing to the specific path inside the src folder
+          npx prisma db push --schema=apps/api/src/prisma/schema.prisma
