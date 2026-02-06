@@ -1,5 +1,5 @@
 name: Setup Database
-on: [workflow_dispatch] # This lets you run it manually
+on: [workflow_dispatch]
 
 jobs:
   db-push:
@@ -12,10 +12,9 @@ jobs:
       - name: Install Dependencies
         run: |
           cd apps/api
-          npm install
+          npm install --legacy-peer-deps
       - name: Push Schema to Supabase
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          cd apps/api
-          npx prisma db push
+          npx prisma db push --schema=apps/api/prisma/schema.prisma
